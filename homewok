@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static List<List<T>> SplitList<T>(List<T> list, int numParts)
+    {
+        List<List<T>> result = new List<List<T>>();
+        int size = list.Count;
+        int splitSize = size / numParts;
+        int remainder = size % numParts;
+
+        int start = 0;
+        for (int i = 0; i < numParts; i++)
+        {
+            int end = start + splitSize + (i < remainder ? 1 : 0);
+            result.Add(list.GetRange(start, end - start));
+            start = end;
+        }
+
+        return result;
+    }
+
+    static void Main()
+    {
+        List<int> myList = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        int parts = 3;
+
+        List<List<int>> splitResult = SplitList(myList, parts);
+
+        Console.Write("Исходный список: ");
+        foreach (int num in myList)
+        {
+            Console.Write(num + " ");
+        }
+        Console.WriteLine();
+
+        for (int i = 0; i < splitResult.Count; i++)
+        {
+            Console.Write("Часть " + (i + 1) + ": ");
+            foreach (int num in splitResult[i])
+            {
+                Console.Write(num + " ");
+            }
+            Console.WriteLine();
+        }
+    }
+}
